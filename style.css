@@ -15,7 +15,7 @@ animation: entrada 1s ease forwards;
 
 .titulo {
   font-size: 32px;      /* el tamaño que quieras */
-  color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
   text-align: center;
   white-space: nowrap; /* 👈 evita que se parta */
 }

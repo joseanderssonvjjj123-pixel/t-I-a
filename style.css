@@ -36,7 +36,7 @@ h1{color: white;
 /* 3. El Título */
 .titulo {
     font-family: garamond;
-    font-weight:(24px, 10vw, 32px) ; /* Tamaño fluido: se encoge en móvil */
+    font-size: 32px; /* Tamaño fluido: se encoge en móvil */
     color: white;
     margin-bottom: 20px;
     white-space: normal; /* Permitimos que baje de línea si el nombre es largo */

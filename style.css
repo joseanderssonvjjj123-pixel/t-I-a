@@ -1,4 +1,4 @@
-/* 1. Corrección del Fondo y Centrado */
+/* 1. Fondo y Centrado Base */
 body {
     min-height: 100vh;
     margin: 0;
@@ -8,115 +8,26 @@ body {
     background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
     background-attachment: fixed;
     font-family: Arial, sans-serif;
-    animation: entrada 1s ease forwards;
     overflow-x: hidden;
 }
 
-/* 2. El contenedor (La tarjeta gris) */
+/* 2. El Cuadro del Centro (Login) */
 .algo {
     background: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
-    
     width: 90%;          
     max-width: 400px;    
-    
     padding: 20px;
     border-radius: 20px;
     box-shadow: 0 20px 95px rgb(0, 0, 0);
     text-align: center;
-    box-sizing: border-box;
     position: relative;
     z-index: 1;
+    transition: transform 0.4s ease; /* Para que se mueva suave si es necesario */
 }
 
-/* --- AJUSTE PARA CELULAR EN HORIZONTAL (LANDSCAPE) --- */
-@media (max-height: 500px) and (orientation: landscape) {
-    body {
-        align-items: flex-start; /* Permite scroll si el alto es muy poco */
-        padding: 20px 0;
-    }
-    .algo {
-        display: flex; /* Cambia a horizontal internamente */
-        flex-wrap: wrap;
-        max-width: 80%; /* Se ensancha en horizontal */
-        justify-content: center;
-        gap: 10px;
-    }
-    .algo img {
-        width: 80px; /* Imagen más pequeña para ahorrar espacio */
-        height: 80px;
-    }
-    h1, .titulo {
-        width: 100%; /* El título sigue ocupando arriba */
-        font-size: 24px;
-    }
-    form {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        width: 100%;
-    }
-    .label, .otro, .password-box, .myButton {
-        width: 48% !important; /* Pone los inputs lado a lado */
-    }
-}
-
-h1 {
-    color: white;
-    font-family: garamond;
-    font-size: 35px;
-}
-
-img {
-    border-radius: 100%;
-    width: 120px;
-    height: 120px;
-    object-fit: cover;
-    margin-bottom: 20px;
-    box-shadow: 0px 10px 35px rgba(255, 255, 255, 0.5);
-}
-
-input, .password, .myButton {
-    width: 100% !important; 
-    height: 45px;
-    margin: 10px 0;
-    box-sizing: border-box;
-    display: block;
-    border-radius: 10px;
-}
-
-.label, .otro {
-    text-align: left;
-    display: block;
-    width: 100%;
-    color: white;
-    font-family: garamond, serif;
-}
-
-.password-box {
-    position: relative;
-    width: 100%;
-}
-
-.eye {
-    position: absolute;
-    right: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-}
-
-.myButton {
-    background: linear-gradient(to bottom, #3d94f6 5%, #1e62d0 100%);
-    color: #ffffff;
-    font-weight: bold;
-    border: 1px solid #337fed;
-}
-
-/* --- MENÚ LATERAL --- */
-#menu-toggle { display: none !important; }
-
+/* 3. Botón de las 3 rayitas (Cuadrado Blanco) */
 .menu-icon {
     position: fixed;
     top: 20px;
@@ -131,6 +42,7 @@ input, .password, .myButton {
     justify-content: center;
     align-items: center;
     gap: 5px;
+    cursor: pointer;
 }
 
 .menu-icon span {
@@ -141,39 +53,68 @@ input, .password, .myButton {
     transition: 0.3s;
 }
 
+/* 4. MENÚ EN CELULAR (HORIZONTAL AL ABRIR) */
 .menu-panel {
     position: fixed;
-    top: 0;
-    left: -100%; 
-    width: 250px;
-    height: 100vh;
+    top: -100%; /* Ahora sale desde arriba, no desde el lado */
+    left: 0;
+    width: 100%; /* Ocupa todo el ancho en horizontal */
+    height: auto;
     background-color: #0d0d0d;
     z-index: 9000;
-    transition: 0.4s;
-    display: flex;
-    flex-direction: column;
-    padding-top: 100px;
-    align-items: center;
+    transition: top 0.4s ease; /* Animación vertical */
+    padding: 80px 0 20px 0;
 }
 
-#menu-toggle:checked ~ .menu-panel { left: 0; }
+#menu-toggle:checked ~ .menu-panel {
+    top: 0; /* Se desliza hacia abajo */
+}
 
+/* 5. Ajuste del Cuadro Grande en Celular para estar en el Centro */
+@media (max-width: 768px) {
+    #menu-toggle:checked ~ .algo {
+        /* Si el menú fuera lateral, esto lo empujaría a la derecha para centrarlo */
+        /* Como ahora es horizontal arriba, nos aseguramos de que baje un poco para no ser tapado */
+        transform: translateY(50px); 
+    }
+}
+
+/* 6. Lógica de la X Roja */
+#menu-toggle { display: none !important; }
 #menu-toggle:checked ~ .menu-icon { background: transparent; }
 #menu-toggle:checked ~ .menu-icon span { background: #ff0000; }
-
 #menu-toggle:checked ~ .menu-icon span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
 #menu-toggle:checked ~ .menu-icon span:nth-child(2) { opacity: 0; }
 #menu-toggle:checked ~ .menu-icon span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
+/* Estilo de los Links en Horizontal para Celular */
+.menu-panel ul {
+    list-style: none;
+    display: flex; /* Los pone uno al lado del otro */
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
 .menu-panel a {
     color: white !important;
     text-decoration: none;
-    font-size: 1.6rem;
-    display: block;
-    margin: 20px 0;
+    font-size: 1.2rem;
+    text-transform: uppercase;
 }
 
-@keyframes entrada {
-    from { opacity: 0; transform: translateY(40px); }
-    to { opacity: 1; transform: translateY(0); }
+/* Estilos de inputs y botón (Tu código original) */
+input, .myButton {
+    width: 100% !important;
+    height: 45px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border: none;
+}
+
+.myButton {
+    background: linear-gradient(to bottom, #3d94f6 5%, #1e62d0 100%);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
 }

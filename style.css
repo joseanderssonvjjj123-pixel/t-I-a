@@ -1,0 +1,132 @@
+/* 1. Corrección del Fondo y Centrado */
+body {
+    min-height: 100vh;
+    margin: 0;
+    display: flex; /* Cambiado de block a flex para centrar todo */
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    background-attachment: fixed; /* Esto quita la raya al hacer scroll */
+    font-family: Arial, sans-serif;
+    animation: entrada 1s ease forwards;
+}
+
+/* 2. El contenedor (La tarjeta gris) */
+.algo {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    
+    /* MEDIDAS RESPONSIVE CLAVE */
+    width: 90%;          /* En celular ocupa casi todo el ancho */
+    max-width: 400px;    /* En laptop no pasa de 400px */
+    
+    padding: 10px 14px;
+    border-radius: 20px;
+    box-shadow: 0 20px 95px rgb(0, 0, 0);
+    text-align: center;
+    box-sizing: border-box; /* Importante para que el padding no rompa el diseño */
+}
+
+h1{color: white;
+  font-family: garamond;
+  font-size: 35px;
+  margin-top: 1px;
+}
+/* 3. El Título */
+.titulo {
+    font-family: garamond;
+    font-size: 32px; /* Tamaño fluido: se encoge en móvil */
+    color: white;
+    margin-bottom: 20px;
+    white-space: normal; /* Permitimos que baje de línea si el nombre es largo */
+}
+
+/* 4. La Imagen del Sheriff */
+img {
+    border-radius: 100%;
+    width: 120px; /* Tamaño fijo pero prudente */
+    height: 120px;
+    object-fit: cover;
+    margin-bottom: 20px;
+    box-shadow: 0px 10px 35px rgba(255, 255, 255, 0.5);
+}
+
+/* 5. Inputs y Botones (Ancho Adaptable) */
+input, .password, .myButton {
+    width: 100% !important; /* Que ocupen todo el ancho de la tarjeta gris */
+    max-width: 100%;
+    height: 45px;
+    margin: 1px 0px;
+    padding-bottom: px;
+    box-sizing: border-box;
+    display: block;
+    border-radius: 10px;
+
+}
+
+
+
+/* Ajuste de etiquetas (Correo / Password) */
+.label, .otro {
+    text-align: left;
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    color: white;
+    font-family: garamond, serif;
+    padding-right: 0; /* Quitamos ese 70% que rompía el diseño */
+}
+
+/* Contenedor del password para que el ojo no se mueva */
+.password-box {
+    position: relative;
+    width: 100%;
+}
+
+.eye {
+    position: absolute;
+    right: 15px;
+    top: 25%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #333;
+}
+
+ .myButton {
+
+  box-shadow:inset 0px 1px 0px 0px #97c4fe;
+  background:linear-gradient(to bottom, #3d94f6 5%, #1e62d0 100%);
+  background-color:#3d94f6;
+  border-radius:6px;
+  border:1px solid #337fed;
+  display:inline-block;
+  cursor:pointer;
+  color:#ffffff;
+  font-family:Arial;
+  font-size:15px;
+  font-weight:bold;
+  padding:15px 24px;
+  text-decoration:none;
+  text-shadow:0px 1px 0px #1570cd;
+    width: 300px;
+    height: 45px;
+}
+
+.myButton:hover {
+  background:linear-gradient(to bottom, #1e62d0 5%, #3d94f6 100%);
+  background-color:#1e62d0;
+}
+
+.myButton:active {
+  position:relative;
+  top:1px;
+}
+
+
+
+/* Animación */
+@keyframes entrada {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+}

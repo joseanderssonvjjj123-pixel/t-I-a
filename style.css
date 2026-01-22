@@ -1,4 +1,4 @@
-/* 1. Reset y Ajuste de Pantalla (CLAVE PARA EVITAR SCROLL) */
+/* 1. Reset y Centrado Total */
 * {
     margin: 0;
     padding: 0;
@@ -6,19 +6,18 @@
 }
 
 body {
-    height: 100vh; /* Altura fija de la pantalla */
-    width: 100vw;  /* Ancho fijo de la pantalla */
-    margin: 0;
+    height: 100vh;
+    width: 100vw;
     display: flex; 
-    justify-content: center;
-    align-items: center;
+    justify-content: center; /* CENTRADO HORIZONTAL */
+    align-items: center;     /* CENTRADO VERTICAL */
     background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
     background-attachment: fixed;
     font-family: Arial, sans-serif;
-    overflow: hidden; /* ESTA LÍNEA bloquea el deslizamiento hacia abajo */
+    overflow: hidden; 
 }
 
-/* 2. La tarjeta con Animación Ajustada */
+/* 2. La Tarjeta (Siempre en el centro) */
 .algo {
     background: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(15px);
@@ -29,50 +28,36 @@ body {
     border-radius: 20px;
     box-shadow: 0 20px 95px rgb(0, 0, 0);
     text-align: center;
-    z-index: 1;
-    
-    /* Animación optimizada */
+    z-index: 5;
+    position: relative;
     animation: entrada 0.8s ease-out forwards;
-    opacity: 0; /* Empieza invisible */
 }
 
-h1{color: white;
-  font-family: garamond;
-  font-size: 35px;
-  margin-top: 1px;
+/* 3. Títulos e Imagen */
+h1 {
+    color: white;
+    font-family: garamond;
+    font-size: 35px;
+    margin-top: 1px;
 }
-/* 3. El Título */
+
 .titulo {
     font-family: garamond;
-    font-size: 32px; /* Tamaño fluido: se encoge en móvil */
+    font-size: 32px;
     color: white;
     margin-bottom: 20px;
-    white-space: normal; /* Permitimos que baje de línea si el nombre es largo */
 }
 
-/* 4. La Imagen del Sheriff */
 img {
     border-radius: 100%;
-    width: 120px; /* Tamaño fijo pero prudente */
+    width: 120px;
     height: 120px;
     object-fit: cover;
     margin-bottom: 20px;
     box-shadow: 0px 10px 35px rgba(255, 255, 255, 0.5);
 }
 
-/* 5. Inputs y Botones (Ancho Adaptable) */
-input, .password, .myButton {
-    width: 100% !important; /* Que ocupen todo el ancho de la tarjeta gris */
-    max-width: 100%;
-    height: 45px;
-    margin: 1px 0px;
-    padding-bottom: px;
-    box-sizing: border-box;
-    display: block;
-    border-radius: 10px;
-
-}
-/* Ajuste de etiquetas (Correo / Password) */
+/* 4. Inputs, Labels y Ojo */
 .label, .otro {
     text-align: left;
     display: block;
@@ -80,10 +65,18 @@ input, .password, .myButton {
     margin-top: 10px;
     color: white;
     font-family: garamond, serif;
-    padding-right: 0; /* Quitamos ese 70% que rompía el diseño */
 }
 
-/* Contenedor del password para que el ojo no se mueva */
+input, .password {
+    width: 100% !important;
+    height: 45px;
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    display: block;
+}
+
 .password-box {
     position: relative;
     width: 100%;
@@ -92,13 +85,39 @@ input, .password, .myButton {
 .eye {
     position: absolute;
     right: 15px;
-    top: 25%;
+    top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
     color: #333;
+    z-index: 10;
 }
 
-/* 3. Botón de las 3 rayitas (Cuadrado Blanco) */
+/* 5. Botón con todos tus estilos originales */
+.myButton {
+    box-shadow: inset 0px 1px 0px 0px #97c4fe;
+    background: linear-gradient(to bottom, #3d94f6 5%, #1e62d0 100%);
+    background-color: #3d94f6;
+    border-radius: 6px;
+    border: 1px solid #337fed;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 10px 24px;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #1570cd;
+    width: 100% !important;
+    height: 45px;
+    margin-top: 20px;
+}
+
+.myButton:hover {
+    background: linear-gradient(to bottom, #1e62d0 5%, #3d94f6 100%);
+}
+
+/* 6. Menú Icono (3 rayitas) */
 .menu-icon {
     position: fixed;
     top: 20px;
@@ -124,7 +143,7 @@ input, .password, .myButton {
     transition: 0.3s;
 }
 
-/* 4. COMPORTAMIENTO POR DEFECTO (PC - VERTICAL IZQUIERDA) */
+/* 7. Menú Panel (PC: Vertical Izquierda) */
 .menu-panel {
     position: fixed;
     top: 0;
@@ -133,9 +152,9 @@ input, .password, .myButton {
     height: 100vh;
     background-color: #0d0d0d;
     z-index: 9000;
-    transition: left 0.4s ease;
+    transition: all 0.4s ease;
     display: flex;
-    flex-direction: column; /* Vertical en PC */
+    flex-direction: column;
     padding-top: 100px;
     align-items: center;
 }
@@ -143,46 +162,35 @@ input, .password, .myButton {
 .menu-panel ul {
     list-style: none;
     display: flex;
-    flex-direction: column; /* Vertical en PC */
+    flex-direction: column;
     gap: 30px;
 }
 
-#menu-toggle:checked ~ .menu-panel {
-    left: 0;
-}
-
-/* 5. COMPORTAMIENTO PARA CELULAR (HORIZONTAL SUPERIOR) */
+/* 8. MODO CELULAR (Menu Vertical desde Arriba + Cuadro Centrado) */
 @media (max-width: 768px) {
     .menu-panel {
-        top: -100%; 
-        left: 0;
+        left: 0; 
+        top: -100%; /* Sale de arriba */
         width: 100%; 
         height: auto;
-        flex-direction: row; /* Horizontal en Celular */
-        padding: 80px 0 20px 0;
-        transition: top 0.4s ease;
-    }
-
-    .menu-panel ul {
-        flex-direction: row; /* Horizontal en Celular */
-        justify-content: center;
-        width: 100%;
-        gap: 15px;
+        padding: 80px 0 30px 0;
+        background-color: #000000;
     }
 
     #menu-toggle:checked ~ .menu-panel {
-        top: 0;
-        left: 0;
+        top: 0; /* Baja del techo */
     }
 
-    /* Mover el cuadro a la derecha para que se vea centrado en el móvil */
+    /* EL CUADRO SE QUEDA EN EL CENTRO (SOLO BAJA UN POCO) */
     #menu-toggle:checked ~ .algo {
-        transform: translateY(40px); /* Baja un poco para no chocar con el menú horizontal */
+        transform: translateY(60px); 
     }
 }
 
-/* Lógica de la X Roja */
-#menu-toggle { display: none !important; }
+/* 9. Lógica de la X Roja */
+#menu-toggle { display: none; }
+#menu-toggle:checked ~ .menu-panel { left: 0; } /* Para PC */
+
 #menu-toggle:checked ~ .menu-icon { background: transparent; }
 #menu-toggle:checked ~ .menu-icon span { background: #ff0000; }
 #menu-toggle:checked ~ .menu-icon span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
@@ -192,103 +200,11 @@ input, .password, .myButton {
 .menu-panel a {
     color: white !important;
     text-decoration: none;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     text-transform: uppercase;
-    transition: 0.3s;
 }
 
-.menu-panel a:hover { color: #ff0000 !important; }
-
-/* Inputs y Botón */
-input, .myButton {
-    width: 100% !important;
-    height: 45px;
-    margin: 10px 0;
-    border-radius: 10px;
-}
-
- .myButton {
-
-  box-shadow:inset 0px 1px 0px 0px #97c4fe;
-  background:linear-gradient(to bottom, #3d94f6 5%, #1e62d0 100%);
-  background-color:#3d94f6;
-  border-radius:6px;
-  border:1px solid #337fed;
-  display:inline-block;
-  cursor:pointer;
-  color:#ffffff;
-  font-family:Arial;
-  font-size:15px;
-  font-weight:bold;
-  padding:15px 24px;
-  text-decoration:none;
-  text-shadow:0px 1px 0px #1570cd;
-    width: 300px;
-    height: 45px;
-}
-
-.myButton:hover {
-  background:linear-gradient(to bottom, #1e62d0 5%, #3d94f6 100%);
-  background-color:#1e62d0;
-}
-
-.myButton:active {
-  position:relative;
-  top:1px;
-}
-
-/* 3. Animación que NO empuja la pantalla */
 @keyframes entrada {
-    from { 
-        opacity: 0; 
-        transform: translateY(20px); /* Reducimos la distancia para que no "venga" desde tan abajo */
-    }
-    to { 
-        opacity: 1; 
-        transform: translateY(0); 
-    }
-}
-
-/* --- REGLAS PARA CELULAR (Horizontal) --- */
-@media (max-width: 768px) {
-    .menu-panel {
-        top: -100%; 
-        left: 0;
-        width: 100%; 
-        height: auto;
-        flex-direction: row; 
-        padding: 60px 0 10px 0;
-        transition: top 0.4s ease;
-    }
-
-    .menu-panel ul {
-        flex-direction: row; 
-        justify-content: center;
-        gap: 15px;
-    }
-
-    #menu-toggle:checked ~ .menu-panel {
-        top: 0;
-    }
-
-    /* Ajuste para que el cuadro no se pierda al abrir el menú en celular */
-    #menu-toggle:checked ~ .algo {
-        transform: scale(0.9) translateY(20px); 
-    }
-}
-
-/* --- REGLAS PARA PC (Vertical Izquierda) --- */
-.menu-panel {
-    position: fixed;
-    top: 0;
-    left: -100%; 
-    width: 250px;
-    height: 100vh;
-    background-color: #0d0d0d;
-    z-index: 9000;
-    transition: left 0.4s ease;
-    display: flex;
-    flex-direction: column;
-    padding-top: 100px;
-    align-items: center;
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }

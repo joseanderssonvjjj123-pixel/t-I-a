@@ -1,242 +1,145 @@
-/* 1. Corrección del Fondo y Centrado */
+/* 1. Fondo y Centrado Base */
 body {
     min-height: 100vh;
     margin: 0;
-    display: flex; /* Cambiado de block a flex para centrar todo */
+    display: flex; 
     justify-content: center;
     align-items: center;
     background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-    background-attachment: fixed; /* Esto quita la raya al hacer scroll */
+    background-attachment: fixed;
     font-family: Arial, sans-serif;
-    animation: entrada 1s ease forwards;
+    overflow-x: hidden;
 }
 
-/* 2. El contenedor (La tarjeta gris) */
+/* 2. El Cuadro del Centro (Login) */
 .algo {
     background: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
-    
-    /* MEDIDAS RESPONSIVE CLAVE */
-    width: 90%;          /* En celular ocupa casi todo el ancho */
-    max-width: 400px;    /* En laptop no pasa de 400px */
-    
-    padding: 10px 14px;
+    width: 90%;          
+    max-width: 400px;    
+    padding: 20px;
     border-radius: 20px;
     box-shadow: 0 20px 95px rgb(0, 0, 0);
     text-align: center;
-    box-sizing: border-box; /* Importante para que el padding no rompa el diseño */
-}
-
-h1{color: white;
-  font-family: garamond;
-  font-size: 35px;
-  margin-top: 1px;
-}
-/* 3. El Título */
-.titulo {
-    font-family: garamond;
-    font-size: 32px; /* Tamaño fluido: se encoge en móvil */
-    color: white;
-    margin-bottom: 20px;
-    white-space: normal; /* Permitimos que baje de línea si el nombre es largo */
-}
-
-/* 4. La Imagen del Sheriff */
-img {
-    border-radius: 100%;
-    width: 120px; /* Tamaño fijo pero prudente */
-    height: 120px;
-    object-fit: cover;
-    margin-bottom: 20px;
-    box-shadow: 0px 10px 35px rgba(255, 255, 255, 0.5);
-}
-
-/* 5. Inputs y Botones (Ancho Adaptable) */
-input, .password, .myButton {
-    width: 100% !important; /* Que ocupen todo el ancho de la tarjeta gris */
-    max-width: 100%;
-    height: 45px;
-    margin: 1px 0px;
-    padding-bottom: px;
-    box-sizing: border-box;
-    display: block;
-    border-radius: 10px;
-
-}
-
-
-
-/* Ajuste de etiquetas (Correo / Password) */
-.label, .otro {
-    text-align: left;
-    display: block;
-    width: 100%;
-    margin-top: 10px;
-    color: white;
-    font-family: garamond, serif;
-    padding-right: 0; /* Quitamos ese 70% que rompía el diseño */
-}
-
-/* Contenedor del password para que el ojo no se mueva */
-.password-box {
     position: relative;
-    width: 100%;
+    z-index: 1;
+    transition: all 0.4s ease;
 }
 
-.eye {
-    position: absolute;
-    right: 15px;
-    top: 25%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    color: #333;
-}
-
- .myButton {
-
-  box-shadow:inset 0px 1px 0px 0px #97c4fe;
-  background:linear-gradient(to bottom, #3d94f6 5%, #1e62d0 100%);
-  background-color:#3d94f6;
-  border-radius:6px;
-  border:1px solid #337fed;
-  display:inline-block;
-  cursor:pointer;
-  color:#ffffff;
-  font-family:Arial;
-  font-size:15px;
-  font-weight:bold;
-  padding:15px 24px;
-  text-decoration:none;
-  text-shadow:0px 1px 0px #1570cd;
-    width: 300px;
+/* 3. Botón de las 3 rayitas (Cuadrado Blanco) */
+.menu-icon {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 50px; 
     height: 45px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    z-index: 9999; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
 }
 
-.myButton:hover {
-  background:linear-gradient(to bottom, #1e62d0 5%, #3d94f6 100%);
-  background-color:#1e62d0;
+.menu-icon span {
+    display: block;
+    width: 30px;
+    height: 3px;
+    background-color: #333;
+    transition: 0.3s;
 }
 
-.myButton:active {
-  position:relative;
-  top:1px;
+/* 4. COMPORTAMIENTO POR DEFECTO (PC - VERTICAL IZQUIERDA) */
+.menu-panel {
+    position: fixed;
+    top: 0;
+    left: -100%; 
+    width: 250px;
+    height: 100vh;
+    background-color: #0d0d0d;
+    z-index: 9000;
+    transition: left 0.4s ease;
+    display: flex;
+    flex-direction: column; /* Vertical en PC */
+    padding-top: 100px;
+    align-items: center;
 }
 
-
-
-/* Animación */
-@keyframes entrada {
-    from { opacity: 0; transform: translateY(40px); }
-    to { opacity: 1; transform: translateY(0); }
+.menu-panel ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column; /* Vertical en PC */
+    gap: 30px;
 }
 
- 
-* {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', sans-serif;
-        }
+#menu-toggle:checked ~ .menu-panel {
+    left: 0;
+}
 
-        /* 2. Checkbox oculto */
-        #menu-toggle {
-            display: none !important;
-        }
+/* 5. COMPORTAMIENTO PARA CELULAR (HORIZONTAL SUPERIOR) */
+@media (max-width: 768px) {
+    .menu-panel {
+        top: -100%; 
+        left: 0;
+        width: 100%; 
+        height: auto;
+        flex-direction: row; /* Horizontal en Celular */
+        padding: 80px 0 20px 0;
+        transition: top 0.4s ease;
+    }
 
-        /* 3. El cuadrado blanco (Botón Hamburguesa) */
-        .menu-icon {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            width: 50px; /* Tamaño grande pedido */
-            height: 45px;
-            background-color: #ffffff;
-            border-radius: 5px;
-            cursor: pointer;
-            z-index: 9999; /* El número más alto para que nada lo tape */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 5px; /* Separación de las 3 rayitas */
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-        }
+    .menu-panel ul {
+        flex-direction: row; /* Horizontal en Celular */
+        justify-content: center;
+        width: 100%;
+        gap: 15px;
+    }
 
-        .menu-icon span {
-            display: block;
-            width: 30px;
-            height: 3px;
-            background-color: #333333;
-            transition: all 0.3s ease;
-            border-radius: 2px;
-        }
+    #menu-toggle:checked ~ .menu-panel {
+        top: 0;
+        left: 0;
+    }
 
-        /* 4. El panel negro lateral */
-        .menu-panel {
-            position: fixed;
-            top: 0;
-            left: -100%; /* Escondido */
-            width: 250px;
-            height: 100vh;
-            background-color: #0d0d0d;
-            z-index: 9000;
-            transition: left 0.4s ease;
-            display: flex;
-            flex-direction: column;
-            padding-top: 100px;
-            align-items: center;
-        }
+    /* Mover el cuadro a la derecha para que se vea centrado en el móvil */
+    #menu-toggle:checked ~ .algo {
+        transform: translateY(40px); /* Baja un poco para no chocar con el menú horizontal */
+    }
+}
 
-        /* 5. Lógica de apertura */
-        #menu-toggle:checked ~ .menu-panel {
-            left: 0;
-        }
+/* Lógica de la X Roja */
+#menu-toggle { display: none !important; }
+#menu-toggle:checked ~ .menu-icon { background: transparent; }
+#menu-toggle:checked ~ .menu-icon span { background: #ff0000; }
+#menu-toggle:checked ~ .menu-icon span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+#menu-toggle:checked ~ .menu-icon span:nth-child(2) { opacity: 0; }
+#menu-toggle:checked ~ .menu-icon span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
-        /* 6. La X Roja (Cuando está abierto) */
-        #menu-toggle:checked ~ .menu-icon {
-            background-color: transparent;
-            box-shadow: none;
-        }
+.menu-panel a {
+    color: white !important;
+    text-decoration: none;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    transition: 0.3s;
+}
 
-        #menu-toggle:checked ~ .menu-icon span {
-            background-color: #ff0000; /* Rojo vibrante */
-            width: 35px;
-        }
+.menu-panel a:hover { color: #ff0000 !important; }
 
-        #menu-toggle:checked ~ .menu-icon span:nth-child(1) {
-            transform: translateY(8px) rotate(45deg);
-        }
+/* Inputs y Botón */
+input, .myButton {
+    width: 100% !important;
+    height: 45px;
+    margin: 10px 0;
+    border-radius: 10px;
+}
 
-        #menu-toggle:checked ~ .menu-icon span:nth-child(2) {
-            opacity: 0;
-        }
-
-        #menu-toggle:checked ~ .menu-icon span:nth-child(3) {
-            transform: translateY(-8px) rotate(-45deg);
-        }
-
-        /* 7. Estilo de los links (Para que no salgan morados) */
-        .menu-panel ul {
-            list-style: none;
-            width: 100%;
-            text-align: center;
-        }
-
-        .menu-panel li {
-            margin: 20px 0;
-        }
-
-        .menu-panel a {
-            color: #ffffff !important; /* Fuerza el blanco */
-            text-decoration: none;
-            font-size: 1.6rem;
-            font-weight: 300;
-            display: inline-block;
-            transition: 0.3s;
-        }
-
-        .menu-panel a:hover {
-            color: #2c5364 !important;
-
-        }
+.myButton {
+    background: linear-gradient(to bottom, #3d94f6 5%, #1e62d0 100%);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+}
